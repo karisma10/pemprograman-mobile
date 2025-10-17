@@ -19,8 +19,7 @@ class LatihanLayout extends StatelessWidget {
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),
           child: Column(
-            crossAxisAlignment:
-                CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
                 width: double.infinity,
@@ -49,20 +48,18 @@ class LatihanLayout extends StatelessWidget {
                 ),
               ),
 
-              const SizedBox(height: 16), 
+              const SizedBox(height: 16),
               Center(
                 child: ClipOval(
                   child: Image.asset(
                     'assets/images/LOGO UMTAS.png',
-                    height: 100, 
+                    height: 100,
                     width: 100,
                     fit: BoxFit.cover,
                   ),
                 ),
               ),
             ],
-            const SizedBox(height: 24),
-            
           ),
         ),
       ),
