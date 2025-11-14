@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 
 class ResultPage extends StatelessWidget {
   final String nama;
-  final String nim;
-  final String prodi;
+  final String email;
+  final String umur;
 
   const ResultPage({
     required this.nama,
-    required this.nim,
-    required this.prodi,
+    required this.email,
+    required this.umur,
     super.key,
   });
 
@@ -64,12 +64,9 @@ class ResultPage extends StatelessWidget {
                     height: 30,
                     color: Colors.blueGrey,
                   ),
-
-                  // ✅ Tampilkan data baru
                   _buildDataRow('Nama', nama),
-                  _buildDataRow('NIM', nim),
-                  _buildDataRow('Prodi', prodi),
-
+                  _buildDataRow('Email', email),
+                  _buildDataRow('Umur', umur),
                   const SizedBox(height: 25),
                   ElevatedButton.icon(
                     onPressed: () {
@@ -97,7 +94,6 @@ class ResultPage extends StatelessWidget {
     );
   }
 
-  // fungsi untuk membuat baris data sejajar
   Widget _buildDataRow(String label, String value) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4.0),

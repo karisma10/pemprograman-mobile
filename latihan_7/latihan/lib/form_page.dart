@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'result_page.dart';
 
 class FormPage extends StatefulWidget {
+  const FormPage({super.key});
+
   @override
   _FormPageState createState() => _FormPageState();
 }
@@ -9,8 +11,8 @@ class FormPage extends StatefulWidget {
 class _FormPageState extends State<FormPage> {
   final _formKey = GlobalKey<FormState>();
   String nama = '';
-  String nim = '';
-  String prodi = '';
+  String email = '';
+  String umur = '';
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,6 @@ class _FormPageState extends State<FormPage> {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          // 🔹 Kotak form persegi
           Center(
             child: Container(
               width: 350,
@@ -49,7 +50,7 @@ class _FormPageState extends State<FormPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Isi Data Mahasiswa',
+                      'Isi Data Anda',
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -57,8 +58,6 @@ class _FormPageState extends State<FormPage> {
                       ),
                     ),
                     const SizedBox(height: 10),
-
-                    // 🔸 Field Nama
                     TextFormField(
                       decoration: const InputDecoration(labelText: 'Nama'),
                       validator: (value) {
@@ -71,37 +70,33 @@ class _FormPageState extends State<FormPage> {
                       },
                       onSaved: (value) => nama = value!,
                     ),
-
-                    // 🔸 Field NIM
                     TextFormField(
-                      decoration: const InputDecoration(labelText: 'NIM'),
+                      decoration: const InputDecoration(labelText: 'Email'),
+                      keyboardType: TextInputType.emailAddress,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Email tidak boleh kosong';
+                        } else if (!value.contains('@')) {
+                          return 'Format email tidak valid';
+                        }
+                        return null;
+                      },
+                      onSaved: (value) => email = value!,
+                    ),
+                    TextFormField(
+                      decoration: const InputDecoration(labelText: 'Umur'),
                       keyboardType: TextInputType.number,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'NIM tidak boleh kosong';
-                        } else if (value.length < 8) {
-                          return 'NIM minimal 8 digit';
+                          return 'Umur tidak boleh kosong';
+                        } else if (int.tryParse(value) == null) {
+                          return 'Umur harus berupa angka';
                         }
                         return null;
                       },
-                      onSaved: (value) => nim = value!,
+                      onSaved: (value) => umur = value!,
                     ),
-
-                    // 🔸 Field Prodi
-                    TextFormField(
-                      decoration: const InputDecoration(labelText: 'Prodi'),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Prodi tidak boleh kosong';
-                        }
-                        return null;
-                      },
-                      onSaved: (value) => prodi = value!,
-                    ),
-
                     const SizedBox(height: 15),
-
-                    // Tombol kirim dan reset
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -121,8 +116,8 @@ class _FormPageState extends State<FormPage> {
                                 MaterialPageRoute(
                                   builder: (context) => ResultPage(
                                     nama: nama,
-                                    nim: nim,
-                                    prodi: prodi,
+                                    email: email,
+                                    umur: umur,
                                   ),
                                 ),
                               );
