@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'result_page.dart';
 
 class FormPage extends StatefulWidget {
-  const FormPage({super.key});
-
   @override
   _FormPageState createState() => _FormPageState();
 }
@@ -11,8 +9,8 @@ class FormPage extends StatefulWidget {
 class _FormPageState extends State<FormPage> {
   final _formKey = GlobalKey<FormState>();
   String nama = '';
-  String email = '';
-  String umur = '';
+  String nim = '';
+  String prodi = '';
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +39,7 @@ class _FormPageState extends State<FormPage> {
                     color: Colors.black26,
                     blurRadius: 10,
                     offset: Offset(3, 5),
-                  ),
+                  )
                 ],
               ),
               child: Form(
@@ -50,7 +48,7 @@ class _FormPageState extends State<FormPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Isi Data Anda',
+                      'Isi Data Mahasiswa',
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -58,6 +56,8 @@ class _FormPageState extends State<FormPage> {
                       ),
                     ),
                     const SizedBox(height: 10),
+
+                    // Nama
                     TextFormField(
                       decoration: const InputDecoration(labelText: 'Nama'),
                       validator: (value) {
@@ -70,32 +70,32 @@ class _FormPageState extends State<FormPage> {
                       },
                       onSaved: (value) => nama = value!,
                     ),
+
+                    // NIM
                     TextFormField(
-                      decoration: const InputDecoration(labelText: 'Email'),
-                      keyboardType: TextInputType.emailAddress,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Email tidak boleh kosong';
-                        } else if (!value.contains('@')) {
-                          return 'Format email tidak valid';
-                        }
-                        return null;
-                      },
-                      onSaved: (value) => email = value!,
-                    ),
-                    TextFormField(
-                      decoration: const InputDecoration(labelText: 'Umur'),
+                      decoration: const InputDecoration(labelText: 'NIM'),
                       keyboardType: TextInputType.number,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Umur tidak boleh kosong';
-                        } else if (int.tryParse(value) == null) {
-                          return 'Umur harus berupa angka';
+                          return 'NIM tidak boleh kosong';
+                        } else if (value.length < 8) {
+                          return 'NIM minimal 8 digit';
                         }
                         return null;
                       },
-                      onSaved: (value) => umur = value!,
+                      onSaved: (value) => nim = value!,
                     ),
+                    TextFormField(
+                      decoration: const InputDecoration(labelText: 'Prodi'),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Prodi tidak boleh kosong';
+                        }
+                        return null;
+                      },
+                      onSaved: (value) => prodi = value!,
+                    ),
+
                     const SizedBox(height: 15),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -104,9 +104,7 @@ class _FormPageState extends State<FormPage> {
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.blueAccent,
                             padding: const EdgeInsets.symmetric(
-                              horizontal: 25,
-                              vertical: 12,
-                            ),
+                                horizontal: 25, vertical: 12),
                           ),
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
@@ -116,8 +114,8 @@ class _FormPageState extends State<FormPage> {
                                 MaterialPageRoute(
                                   builder: (context) => ResultPage(
                                     nama: nama,
-                                    email: email,
-                                    umur: umur,
+                                    nim: nim,
+                                    prodi: prodi,
                                   ),
                                 ),
                               );
@@ -130,16 +128,12 @@ class _FormPageState extends State<FormPage> {
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.grey,
                             padding: const EdgeInsets.symmetric(
-                              horizontal: 25,
-                              vertical: 12,
-                            ),
+                                horizontal: 25, vertical: 12),
                           ),
                           onPressed: () {
                             _formKey.currentState?.reset();
                             ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Form telah direset'),
-                              ),
+                              const SnackBar(content: Text('Form telah direset')),
                             );
                           },
                           child: const Text('Reset'),

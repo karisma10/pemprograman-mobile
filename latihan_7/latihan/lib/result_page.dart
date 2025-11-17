@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 
 class ResultPage extends StatelessWidget {
   final String nama;
-  final String email;
-  final String umur;
+  final String nim;
+  final String prodi;
 
   const ResultPage({
     required this.nama,
-    required this.email,
-    required this.umur,
+    required this.nim,
+    required this.prodi,
     super.key,
   });
 
@@ -39,17 +39,14 @@ class ResultPage extends StatelessWidget {
                     color: Colors.black26,
                     blurRadius: 10,
                     offset: Offset(3, 5),
-                  ),
+                  )
                 ],
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(
-                    Icons.check_circle_outline,
-                    color: Colors.blue,
-                    size: 70,
-                  ),
+                  const Icon(Icons.check_circle_outline,
+                      color: Colors.blue, size: 70),
                   const SizedBox(height: 10),
                   Text(
                     'Data Berhasil Dikirim!',
@@ -59,14 +56,13 @@ class ResultPage extends StatelessWidget {
                       color: Colors.blue.shade800,
                     ),
                   ),
-                  const Divider(
-                    thickness: 1,
-                    height: 30,
-                    color: Colors.blueGrey,
-                  ),
+                  const Divider(thickness: 1, height: 30, color: Colors.blueGrey),
+
+                  // ✅ Tampilkan data baru
                   _buildDataRow('Nama', nama),
-                  _buildDataRow('Email', email),
-                  _buildDataRow('Umur', umur),
+                  _buildDataRow('NIM', nim),
+                  _buildDataRow('Prodi', prodi),
+
                   const SizedBox(height: 25),
                   ElevatedButton.icon(
                     onPressed: () {
@@ -77,9 +73,7 @@ class ResultPage extends StatelessWidget {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blueAccent,
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 35,
-                        vertical: 12,
-                      ),
+                          horizontal: 35, vertical: 12),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -94,6 +88,7 @@ class ResultPage extends StatelessWidget {
     );
   }
 
+  // fungsi untuk membuat baris data sejajar
   Widget _buildDataRow(String label, String value) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4.0),
